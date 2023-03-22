@@ -18,13 +18,13 @@ import java.time.LocalDate;
 @Service
 public class SearchApiService {
 
-    @Value("${kakao.blog.host}")
+    @Value("${api-spec.kakao.blog.host}")
     private String kakaoBlogHost;
 
-    @Value("${kakao.blog.uri}")
+    @Value("${api-spec.kakao.blog.uri}")
     private String kakaoBlogUri;
 
-    @Value("${kakao.rest.apikey}")
+    @Value("${api-spec.kakao.rest.apikey}")
     private String kakaoApiKey;
 
     @Autowired
@@ -71,7 +71,7 @@ public class SearchApiService {
 
         System.out.println("response.getBody() = " + response.getBody());
         System.out.println("response.getStatusCode() = " + response.getStatusCode());
-        popularSearchRepository.updateScoreByKeyword(searchDto.getQuery(), LocalDate.now());
+//        popularSearchRepository.updateScoreByKeyword(searchDto.getQuery(), LocalDate.now());
 
         return response;
 
