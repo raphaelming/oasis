@@ -4,6 +4,7 @@ package com.raphaelming.oasis.service;
 import com.raphaelming.oasis.dto.SearchDto;
 import com.raphaelming.oasis.entity.SearchResult;
 import com.raphaelming.oasis.repository.PopularSearchRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -16,6 +17,7 @@ import java.net.URI;
 import java.time.LocalDate;
 
 @Service
+@RequiredArgsConstructor
 public class SearchApiService {
 
     @Value("${api-spec.kakao.blog.host}")
@@ -27,8 +29,7 @@ public class SearchApiService {
     @Value("${api-spec.kakao.rest.apikey}")
     private String kakaoApiKey;
 
-    @Autowired
-    private PopularSearchRepository popularSearchRepository;
+    private final PopularSearchRepository popularSearchRepository;
 
     public SearchResult<?> searchBlog(SearchDto searchDto) {
         SearchResult result = null;
@@ -71,7 +72,7 @@ public class SearchApiService {
 
         System.out.println("response.getBody() = " + response.getBody());
         System.out.println("response.getStatusCode() = " + response.getStatusCode());
-//        popularSearchRepository.updateScoreByKeyword(searchDto.getQuery(), LocalDate.now());
+        popularSearchRepository.updateScoreByKeyword(searchDto.getQuery(), LocalDate.now());
 
         return response;
 
